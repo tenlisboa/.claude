@@ -8,9 +8,9 @@ Configuration repository for Claude Code: agent definitions, settings, and utili
 
 ```
 ~/.claude/
-├── agents/           # Multi-agent system: product-manager → feature-refiner → coder → qa-code-reviewer
+├── agents/           # Multi-agent system: feature-refiner → coder → qa-code-reviewer
 ├── commands/         # Custom slash commands
-├── skills/           # atomic-commits skill
+├── skills/           # atomic-commits, product-management
 ├── utils/            # Shell helpers (cl command)
 ├── settings.json     # Global settings
 └── settings.local.json  # Web permissions
@@ -43,7 +43,8 @@ cl "your question"                            # Quick terminal help
 
 ## Critical Notes
 
-- Agent chain: product-manager → feature-refiner → coder → qa-code-reviewer
+- Skills: product-management (auto-loaded), atomic-commits
+- Agent chain: feature-refiner → coder → qa-code-reviewer
 - coder ALWAYS delegates to qa-code-reviewer after implementation
 - Specs go in `specs/[feature-name].md`
 - Use Task tool with `subagent_type` to invoke agents
