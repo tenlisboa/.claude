@@ -1,6 +1,6 @@
 ---
 name: atomic-commits
-description: Creates semantic atomic commits using Conventional Commits. Use when committing changes, staging files, or when asked to commit code. Analyzes diffs, suggests scope, and can split changes into granular commits.
+description: Creates semantic atomic commits using Conventional Commits. Use always when committing changes, staging files, or when asked to commit code. Analyzes diffs, suggests scope, and can split changes into granular commits.
 allowed-tools: Bash, Read, Glob, Grep, AskUserQuestion
 ---
 
@@ -31,19 +31,19 @@ git diff
 
 For each logical change, determine the appropriate type:
 
-| Type | When to Use |
-|------|-------------|
-| `feat` | New feature for the user |
-| `fix` | Bug fix for the user |
-| `docs` | Documentation only changes |
-| `style` | Formatting, missing semicolons (no code change) |
+| Type       | When to Use                                             |
+| ---------- | ------------------------------------------------------- |
+| `feat`     | New feature for the user                                |
+| `fix`      | Bug fix for the user                                    |
+| `docs`     | Documentation only changes                              |
+| `style`    | Formatting, missing semicolons (no code change)         |
 | `refactor` | Code change that neither fixes a bug nor adds a feature |
-| `perf` | Performance improvement |
-| `test` | Adding or fixing tests |
-| `build` | Build system or external dependencies |
-| `ci` | CI configuration files and scripts |
-| `chore` | Other changes that don't modify src or test files |
-| `revert` | Reverts a previous commit |
+| `perf`     | Performance improvement                                 |
+| `test`     | Adding or fixing tests                                  |
+| `build`    | Build system or external dependencies                   |
+| `ci`       | CI configuration files and scripts                      |
+| `chore`    | Other changes that don't modify src or test files       |
+| `revert`   | Reverts a previous commit                               |
 
 ### Step 3: Determine Scope
 
@@ -83,6 +83,7 @@ Before committing, validate the message follows the pattern:
 ```
 
 Rules:
+
 - Type is required and lowercase
 - Scope is optional, lowercase, in parentheses
 - Description starts lowercase, no period at end
@@ -124,6 +125,7 @@ When changes are complex, create separate commits for:
 4. **Docs**: Documentation updates
 
 Example sequence:
+
 ```
 refactor(auth): extract token validation to separate function
 feat(auth): add OAuth2 support
