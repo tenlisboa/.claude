@@ -88,7 +88,7 @@ Rules:
 - Description starts lowercase, no period at end
 - Max 72 characters for first line
 - Body wrapped at 72 characters
-- Breaking changes: add `!` after type/scope or `BREAKING CHANGE:` in footer
+- Breaking changes: add "!" after type/scope or "BREAKING CHANGE:" in footer
 - **NEVER add auto-generated labels** like "Generated with Claude Code", "Co-Authored-By", or any AI attribution
 - Commit messages must be clean and professional, as if written by the developer
 

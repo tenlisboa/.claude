@@ -180,7 +180,7 @@ Scope should be a noun describing the section of codebase.
 
 ## Breaking Changes
 
-Mark breaking changes with `!` or footer.
+Mark breaking changes with "!" or footer.
 
 ### When to Mark Breaking
 
@@ -192,7 +192,7 @@ Mark breaking changes with `!` or footer.
 
 ### Format Options
 
-**With `!`:**
+**With "!":**
 ```
 feat(api)!: change response format to JSON:API
 ```
