@@ -1,6 +1,6 @@
 ---
 name: product-management
-description: Orchestrates feature development from specification to implementation. Use when specifying new features, planning product enhancements, creating requirements, or coordinating development workflow. Creates BDD specs and delegates to feature-refiner, coder, and qa-code-reviewer agents.
+description: Orchestrates feature development to specification to implementation. Also known as Produto, PM, or Product. Use when specifying new features, planning product enhancements, creating requirements, or coordinating development workflow. Creates BDD specs and delegates to feature-refiner, coder, and qa-code-reviewer agents.
 allowed-tools: Bash, Read, Glob, Grep, WebFetch, WebSearch, AskUserQuestion, Task
 ---
 
@@ -59,6 +59,7 @@ Use Task tool with subagent_type="feature-refiner":
 ```
 
 **Prompt template:**
+
 ```
 Review and refine the specification at specs/[feature-name].md.
 
@@ -84,6 +85,7 @@ Use Task tool with subagent_type="coder":
 ```
 
 **Prompt template:**
+
 ```
 Implement the feature specified in specs/[feature-name].md.
 
@@ -100,6 +102,7 @@ Requirements:
 ### Flow Control
 
 **Full implementation flow:**
+
 ```
 1. product-management creates spec
 2. product-management → feature-refiner (refine)
@@ -110,6 +113,7 @@ Requirements:
 ```
 
 **Quick implementation (simple features):**
+
 ```
 1. product-management creates spec
 2. product-management → coder (skip refiner for simple cases)
@@ -117,6 +121,7 @@ Requirements:
 ```
 
 Use the quick flow when:
+
 - Feature is small (1-2 files)
 - No library decisions needed
 - Patterns are obvious from codebase
@@ -124,6 +129,7 @@ Use the quick flow when:
 ## Design Philosophy
 
 Prefer simplicity over patterns:
+
 - Use arrays/associative arrays instead of DTOs unless necessary
 - Avoid interfaces unless there will be multiple implementations
 - Avoid base classes unless there's significant shared logic
@@ -148,6 +154,7 @@ read relevant_file.py
 ```
 
 Questions to answer:
+
 - What patterns does this codebase follow?
 - What conventions exist for similar features?
 - What dependencies are available?
@@ -168,11 +175,13 @@ So that [business value]
 Separate essential from nice-to-have:
 
 **In Scope (MVP):**
+
 - Core functionality that delivers value
 - Essential error handling
 - Basic validation
 
 **Deferred:**
+
 - Edge cases that rarely occur
 - Advanced configuration
 - Optimizations
@@ -191,6 +200,7 @@ And [additional outcomes if needed]
 ```
 
 Cover these scenarios:
+
 1. **Happy path**: Normal successful usage
 2. **Edge cases**: Boundary conditions, empty states
 3. **Error conditions**: Invalid input, failures
@@ -210,18 +220,21 @@ Save to `specs/[feature-name].md` following the format in [SPECIFICATION-FORMAT.
 ## Decision Framework
 
 **Proceed with specification when:**
+
 - Codebase investigation reveals clear patterns to follow
 - Core user need is understood
 - MVP scope can be reasonably bounded
 - You can write at least the happy path scenario
 
 **Ask clarifying questions when:**
+
 - Multiple interpretations lead to significantly different solutions
 - Business rules have genuine ambiguity
 - Success criteria cannot be reasonably inferred
 - Constraints conflict with each other
 
 **Push back when:**
+
 - Scope clearly exceeds MVP without justification
 - Request conflicts with codebase patterns
 - Critical information is missing and cannot be inferred
