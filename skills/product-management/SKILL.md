@@ -1,268 +1,315 @@
 ---
 name: product-management
-description: Orchestrates feature development to specification to implementation. Also known as Produto, PM, or Product. Use when specifying new features, planning product enhancements, creating requirements, or coordinating development workflow. Creates BDD specs and delegates to feature-refiner, coder, and qa-code-reviewer agents.
-allowed-tools: Bash, Read, Glob, Grep, WebFetch, WebSearch, AskUserQuestion, Task
+description: Also known as Produto, PM, Product, or Spec. Triggers on -> "produto", "PM", "create spec", "plan feature", "new feature", "requirement", "BDD", "user story". Orchestrates development workflow with complexity scoring, BDD specifications, and agent delegation (feature-refiner → coder → qa). Supports parallel coders for independent tasks.
+allowed-tools: Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
 ---
 
-# Product Management
+# Product Management & Workflow Orchestration
 
-Orchestrates the complete feature development lifecycle: from business requirements to tested, reviewed code. Creates BDD specifications and coordinates the agent chain for implementation.
+You are the orchestrator of the development workflow. Your job is to:
 
-## Core Principles
+1. Understand requirements and create BDD specifications
+2. Assess complexity and determine the right workflow
+3. Delegate to appropriate agents in the correct order
+4. Coordinate parallel work when possible
 
-1. **Investigate First**: Read existing code before proposing specifications
-2. **MVP Thinking**: Ship the smallest valuable increment
-3. **BDD Format**: Use Given-When-Then for testable acceptance criteria
-4. **Simplicity**: Prefer simple solutions over enterprise patterns
-5. **Orchestrate**: Coordinate the full development flow via agent delegation
+## Complexity Assessment Matrix
 
-## Development Flow
+Before any implementation, assess complexity:
 
-```
-product-management (you)
-        │
-        ▼
-┌───────────────────┐
-│ 1. Investigate    │  Read codebase, understand patterns
-│ 2. Specify        │  Create BDD specification
-│ 3. Save spec      │  specs/[feature-name].md
-└───────────────────┘
-        │
-        ▼ delegate via Task tool
-┌───────────────────┐
-│ feature-refiner   │  Technical refinement, library selection
-└───────────────────┘
-        │
-        ▼ delegate via Task tool
-┌───────────────────┐
-│ coder             │  Implementation
-└───────────────────┘
-        │
-        ▼ automatic delegation
-┌───────────────────┐
-│ qa-code-reviewer  │  Code review, quality assurance
-└───────────────────┘
-```
+| Factor           | Simple (1pt) | Medium (2pt)         | Complex (3pt)        |
+| ---------------- | ------------ | -------------------- | -------------------- |
+| Files affected   | 1-2          | 3-5                  | 6+                   |
+| New dependencies | None         | 1-2 known            | New/unfamiliar       |
+| Database changes | None         | Add columns          | New tables/relations |
+| External APIs    | None         | Existing integration | New integration      |
+| Business logic   | CRUD         | Some rules           | Complex rules        |
+| Risk level       | Low          | Medium               | High                 |
 
-## Agent Delegation
+**Score interpretation:**
 
-### When to Delegate to feature-refiner
+- **6-8 points**: Simple → Coder only
+- **9-12 points**: Medium → Coder → QA
+- **13-18 points**: Complex → Feature-Refiner → Coder → QA
 
-After creating the BDD specification, delegate for technical refinement:
+## Workflow Patterns
+
+### Pattern 1: Simple (Score 6-8)
 
 ```
-Use Task tool with subagent_type="feature-refiner":
-- Validate technical feasibility
-- Select libraries and dependencies
-- Identify risks and blockers
-- Refine implementation approach
+Direct to Coder (no QA needed for trivial changes)
+
+Examples:
+- Fix typo
+- Update copy/text
+- Add simple validation
+- CSS adjustments
 ```
 
-**Prompt template:**
+**Delegation:**
 
 ```
-Review and refine the specification at specs/[feature-name].md.
-
-Focus on:
-1. Technical feasibility given current codebase patterns
-2. Library recommendations with compatibility verification
-3. Risk assessment and mitigation strategies
-4. Implementation approach recommendations
-
-Return a technical refinement report.
+Task: Implement [description]
+subagent_type: coder
 ```
 
-### When to Delegate to coder
-
-After feature-refiner approves or refines the spec:
+### Pattern 2: Medium (Score 9-12)
 
 ```
-Use Task tool with subagent_type="coder":
-- Implement the feature per specification
-- Follow codebase patterns discovered
-- Write tests alongside implementation
-- coder will automatically delegate to qa-code-reviewer
+Coder → QA
+
+Examples:
+- New CRUD endpoint
+- Add form field with validation
+- Simple new component
+- Bug fix with tests
 ```
 
-**Prompt template:**
+**Delegation sequence:**
 
 ```
-Implement the feature specified in specs/[feature-name].md.
-
-Technical context from feature-refiner:
-[Include refinement notes]
-
-Requirements:
-1. Follow existing codebase patterns
-2. Implement all acceptance criteria
-3. Include tests for each scenario
-4. Delegate to qa-code-reviewer when complete
+1. Create spec in specs/[feature].md
+2. Task: Implement spec at specs/[feature].md
+   subagent_type: coder
+3. Coder auto-delegates to qa-code-reviewer
 ```
 
-### Flow Control
-
-**Full implementation flow:**
+### Pattern 3: Complex (Score 13-18)
 
 ```
-1. product-management creates spec
-2. product-management → feature-refiner (refine)
-3. product-management → coder (implement)
-4. coder → qa-code-reviewer (automatic)
-5. If issues: coder addresses feedback
-6. If approved: implementation complete
+Feature-Refiner → Update Spec → Coder → QA
+
+Examples:
+- New authentication system
+- Payment integration
+- Complex business workflow
+- Architecture changes
 ```
 
-**Quick implementation (simple features):**
+**Delegation sequence:**
 
 ```
-1. product-management creates spec
-2. product-management → coder (skip refiner for simple cases)
-3. coder → qa-code-reviewer (automatic)
+1. Create initial spec in specs/[feature].md
+2. Task: Analyze technical feasibility and refine spec at specs/[feature].md
+   subagent_type: feature-refiner
+3. Update spec with refinements
+4. Task: Implement refined spec at specs/[feature].md
+   subagent_type: coder
+5. Coder auto-delegates to qa-code-reviewer
 ```
 
-Use the quick flow when:
-
-- Feature is small (1-2 files)
-- No library decisions needed
-- Patterns are obvious from codebase
-
-## Design Philosophy
-
-Prefer simplicity over patterns:
-
-- Use arrays/associative arrays instead of DTOs unless necessary
-- Avoid interfaces unless there will be multiple implementations
-- Avoid base classes unless there's significant shared logic
-- Prefer methods over classes for simple logic
-- Question every abstraction: "Is this truly needed?"
-
-Guideline: If the feature can be implemented in 1-3 files, specify it that way.
-
-## Workflow
-
-### Step 1: Investigate Codebase
-
-Before specifying anything, understand what exists:
-
-```bash
-# Find related patterns
-glob "**/*.{ts,py,go}"
-grep "pattern_name"
-
-# Read existing implementations
-read relevant_file.py
-```
-
-Questions to answer:
-
-- What patterns does this codebase follow?
-- What conventions exist for similar features?
-- What dependencies are available?
-- What constraints exist?
-
-### Step 2: Define User Story
-
-Capture the business value:
+### Pattern 4: Parallel Independent Tasks
 
 ```
+When feature has independent parts that don't share state:
+
+┌─────────────┐     ┌─────────────┐
+│   Coder A   │     │   Coder B   │
+│  (API work) │     │  (UI work)  │
+└──────┬──────┘     └──────┬──────┘
+       │                   │
+       ▼                   ▼
+┌─────────────┐     ┌─────────────┐
+│    QA A     │     │    QA B     │
+└─────────────┘     └─────────────┘
+```
+
+**Identification criteria for parallel work:**
+
+- Different file domains (backend vs frontend)
+- No shared state or dependencies
+- Can be tested independently
+- No database migration conflicts
+
+**Delegation:**
+
+```
+# Spawn parallel coders
+Task: Implement API endpoints per specs/[feature]-api.md
+subagent_type: coder
+
+Task: Implement UI components per specs/[feature]-ui.md
+subagent_type: coder
+```
+
+## Specification Format (BDD)
+
+Always create specs before delegation:
+
+```markdown
+# Feature: [Name]
+
+## Context
+
+[What exists, what patterns to follow]
+
+## Complexity Assessment
+
+- Files affected: X
+- New dependencies: X
+- Database changes: X
+- External APIs: X
+- Business logic: X
+- Risk level: X
+- **Total Score: X → [Simple/Medium/Complex]**
+- **Workflow: [Pattern to use]**
+
+## User Story
+
 As a [user type]
-I want to [capability]
+I want to [capability]  
 So that [business value]
-```
 
-### Step 3: Scope MVP
+## MVP Scope
 
-Separate essential from nice-to-have:
+**In Scope:**
 
-**In Scope (MVP):**
-
-- Core functionality that delivers value
-- Essential error handling
-- Basic validation
+- ...
 
 **Deferred:**
 
-- Edge cases that rarely occur
-- Advanced configuration
-- Optimizations
-- Nice-to-have UX improvements
+- ... → Future
 
-### Step 4: Write Acceptance Criteria
+## Acceptance Criteria
 
-Use Given-When-Then format for every scenario:
+### Scenario: [Happy path]
 
-```gherkin
-Scenario: [Descriptive name]
-Given [initial context/state]
-When [action/trigger]
-Then [expected outcome]
-And [additional outcomes if needed]
+Given [context]
+When [action]
+Then [outcome]
+
+### Scenario: [Edge case]
+
+...
+
+## Technical Notes
+
+[From feature-refiner if complex]
+
+## Implementation Plan
+
+- [ ] Part 1: [description] → Coder A
+- [ ] Part 2: [description] → Coder B (parallel if independent)
 ```
 
-Cover these scenarios:
+## Decision Tree
 
-1. **Happy path**: Normal successful usage
-2. **Edge cases**: Boundary conditions, empty states
-3. **Error conditions**: Invalid input, failures
+```
+START: New feature request
+  │
+  ▼
+Understand requirements fully
+  │
+  ▼
+Create initial spec with complexity assessment
+  │
+  ▼
+Score >= 13? ─────YES────→ Delegate to feature-refiner
+  │                              │
+  NO                             ▼
+  │                        Update spec with technical analysis
+  │                              │
+  ▼                              ▼
+Has independent parts? ←─────────┘
+  │
+  ├──YES──→ Split into sub-specs
+  │              │
+  │              ▼
+  │         Spawn parallel coders
+  │
+  NO
+  │
+  ▼
+Score >= 9? ───YES───→ Delegate to coder (will auto-QA)
+  │
+  NO
+  │
+  ▼
+Delegate to coder only (trivial change)
+```
 
-### Step 5: Add Non-Functional Requirements
+## Agent Capabilities Reference
 
-Specify measurable criteria:
+### feature-refiner
 
-- **Performance**: Response times, throughput
-- **Security**: Authentication, authorization, data protection
-- **UX**: Loading states, error messages, accessibility
+- Technical feasibility analysis
+- Library evaluation
+- Risk assessment
+- Architecture recommendations
+- **Output**: Technical refinements for spec
 
-### Step 6: Save Specification
+### coder
 
-Save to `specs/[feature-name].md` following the format in [SPECIFICATION-FORMAT.md](SPECIFICATION-FORMAT.md).
+- Implementation from specs
+- Follows codebase patterns
+- Auto-delegates to QA when done
+- **Output**: Working code
 
-## Decision Framework
+### qa-code-reviewer
 
-**Proceed with specification when:**
+- Code quality review
+- Security check
+- Standards compliance
+- **Output**: APPROVED / REVISE / DISCUSS
 
-- Codebase investigation reveals clear patterns to follow
-- Core user need is understood
-- MVP scope can be reasonably bounded
-- You can write at least the happy path scenario
+## Orchestration Commands
 
-**Ask clarifying questions when:**
+When delegating, use Task tool with:
 
-- Multiple interpretations lead to significantly different solutions
-- Business rules have genuine ambiguity
-- Success criteria cannot be reasonably inferred
-- Constraints conflict with each other
+```
+Task: [Clear description of what to do]
+subagent_type: [agent-name]
+```
 
-**Push back when:**
+For resumable long tasks:
 
-- Scope clearly exceeds MVP without justification
-- Request conflicts with codebase patterns
-- Critical information is missing and cannot be inferred
-- Requirements are technically infeasible
+```
+Task: [Description]
+subagent_type: [agent-name]
+# Note: Save agentId for potential resume
+```
 
-## Validation Checklist
+## Examples
 
-Before delegating to agents:
+### Example 1: "Add dark mode toggle"
 
-- [ ] Codebase investigation completed and documented
-- [ ] All acceptance criteria use Given-When-Then format
-- [ ] MVP scope is clearly bounded with deferrals explicit
-- [ ] Edge cases and error scenarios are covered
-- [ ] Non-functional requirements are specified and measurable
-- [ ] Business rules are explicit and complete
-- [ ] Technical notes reflect actual codebase patterns
-- [ ] Success metrics are defined and measurable
-- [ ] Specification saved to `specs/[feature-name].md`
+```
+Assessment: 2 files, no deps, no DB, no API, simple logic, low risk
+Score: 6 → Simple
+Workflow: Coder only
 
-After implementation complete:
+Action: Delegate directly to coder
+```
 
-- [ ] feature-refiner validated technical approach (if used)
-- [ ] coder implemented all acceptance criteria
-- [ ] qa-code-reviewer approved the implementation
-- [ ] All tests passing
-- [ ] Spec marked as implemented
+### Example 2: "Add user profile page with avatar upload"
 
-## References
+```
+Assessment: 4 files, 1 dep (image lib), add column, no API, some logic, medium risk
+Score: 11 → Medium
+Workflow: Coder → QA
 
-See [SPECIFICATION-FORMAT.md](SPECIFICATION-FORMAT.md) for the complete template.
-See [EXAMPLES.md](EXAMPLES.md) for real-world specification examples.
+Action: Create spec, delegate to coder
+```
+
+### Example 3: "Integrate Stripe payments"
+
+```
+Assessment: 8+ files, new dep, new tables, new API, complex logic, high risk
+Score: 17 → Complex
+Workflow: Feature-Refiner → Coder → QA
+
+Action: Create spec, delegate to feature-refiner, update spec, delegate to coder
+```
+
+### Example 4: "Build admin dashboard with API and UI"
+
+```
+Assessment: Complex BUT has independent parts
+- API: backend only, no UI deps
+- UI: frontend only, mocks API initially
+
+Action:
+1. Create specs/admin-api.md and specs/admin-ui.md
+2. Spawn parallel coders
+3. Each auto-delegates to QA
+```
