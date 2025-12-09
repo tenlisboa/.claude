@@ -198,6 +198,10 @@ Aggregate findings, identify patterns, prioritize by impact.
 - Appropriate complexity for expected data volumes
 - Correct data structures for access patterns
 - No obvious scalability bottlenecks
+- **Input API optimization**: Inputs triggering API calls must NOT fire on every change
+  - Sliders must use `onValueCommit` (not `onValueChange`) for saves
+  - Text inputs must use `onBlur` or debounce for saves
+  - Local state should handle immediate visual feedback
 
 ---
 

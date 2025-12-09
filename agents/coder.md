@@ -77,6 +77,10 @@ Ask: "Can I solve this in fewer files while keeping it testable?"
 - Fragments to avoid DOM pollution
 - useMemo/useCallback only when measured
 - Zustand for global state
+- **Input optimization**: For inputs triggering API calls, use local state + commit events:
+  - Sliders: `onValueChange` for local state, `onValueCommit` for API call
+  - Text inputs: `onChange` for local state, `onBlur` for API call
+  - Prevents excessive network requests during user interaction
 
 ### Python
 
