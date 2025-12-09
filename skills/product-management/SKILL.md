@@ -1,21 +1,53 @@
 ---
 name: product-management
-description: Also known as Produto, PM, Product, or Spec. Triggers on -> "produto", "PM", "create spec", "plan feature", "new feature", "requirement", "BDD", "user story". Orchestrates development workflow with complexity scoring, BDD specifications, and agent delegation (feature-refiner → coder → qa). Supports parallel coders for independent tasks.
+description: Orchestrates ALL implementation requests. Use when user asks to implement, add, create, build, refactor, adjust, fix, update, or change any feature or code. Also triggers on "produto", "PM", "spec", "feature", "requirement", "BDD". Handles both simple tasks (direct to coder) and complex workflows (feature-refiner → coder → qa).
 allowed-tools: Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
 ---
 
 # Product Management & Workflow Orchestration
 
-You are the orchestrator of the development workflow. Your job is to:
+You orchestrate ALL development requests - from simple fixes to complex features.
 
-1. Understand requirements and create BDD specifications
-2. Assess complexity and determine the right workflow
-3. Delegate to appropriate agents in the correct order
-4. Coordinate parallel work when possible
+## FIRST: Quick Complexity Check (5 seconds)
 
-## Complexity Assessment Matrix
+Before anything, answer these 3 questions mentally:
 
-Before any implementation, assess complexity:
+1. **Is it a typo/text change/single-line fix?** → TRIVIAL, skip to Trivial Path
+2. **Is it a single file with clear scope?** → SIMPLE, skip to Simple Path
+3. **Does it need planning/multiple files?** → Continue to Full Assessment
+
+### Trivial Path (Score < 6)
+
+For truly trivial changes, **delegate immediately without spec**:
+
+```
+Task: [Exact user request]
+subagent_type: coder
+```
+
+Examples: typo fix, CSS tweak, rename variable, update string literal, add simple validation
+
+### Simple Path (Score 6-8)
+
+For simple but non-trivial changes:
+
+1. Brief mental assessment (no written spec needed)
+2. Delegate to coder with clear instructions:
+
+```
+Task: [Clear description with context]
+subagent_type: coder
+```
+
+Examples: add button, new simple endpoint, basic component, configuration change
+
+### Full Path (Score 9+)
+
+Continue to Complexity Assessment Matrix below.
+
+---
+
+## Complexity Assessment Matrix (Only for Score 9+)
 
 | Factor           | Simple (1pt) | Medium (2pt)         | Complex (3pt)        |
 | ---------------- | ------------ | -------------------- | -------------------- |
@@ -195,37 +227,34 @@ Then [outcome]
 ## Decision Tree
 
 ```
-START: New feature request
+START: Any implementation request
   │
   ▼
-Understand requirements fully
+QUICK CHECK (5 seconds):
   │
-  ▼
-Create initial spec with complexity assessment
+  ├── Typo/text/single-line? ─────→ TRIVIAL: Delegate to coder immediately
   │
-  ▼
-Score >= 13? ─────YES────→ Delegate to feature-refiner
-  │                              │
-  NO                             ▼
-  │                        Update spec with technical analysis
-  │                              │
-  ▼                              ▼
-Has independent parts? ←─────────┘
+  ├── Single file, clear scope? ──→ SIMPLE: Delegate to coder with context
   │
-  ├──YES──→ Split into sub-specs
-  │              │
-  │              ▼
-  │         Spawn parallel coders
-  │
-  NO
-  │
-  ▼
-Score >= 9? ───YES───→ Delegate to coder (will auto-QA)
-  │
-  NO
-  │
-  ▼
-Delegate to coder only (trivial change)
+  └── Needs planning? ────────────→ Continue below
+         │
+         ▼
+    Create spec with complexity assessment
+         │
+         ▼
+    Score >= 13? ─────YES────→ feature-refiner → coder → qa
+         │
+         NO
+         │
+         ▼
+    Has independent parts?
+         │
+         ├──YES──→ Split specs, spawn parallel coders
+         │
+         NO
+         │
+         ▼
+    Delegate to coder (auto-QA for score 9+)
 ```
 
 ## Agent Capabilities Reference
@@ -271,29 +300,53 @@ subagent_type: [agent-name]
 
 ## Examples
 
-### Example 1: "Add dark mode toggle"
+### Example 1: "Fix typo in login button" → TRIVIAL
 
 ```
-Assessment: 2 files, no deps, no DB, no API, simple logic, low risk
+Quick check: Single text change? YES → TRIVIAL
+Action: Delegate immediately
+
+Task: Fix typo in login button
+subagent_type: coder
+```
+
+### Example 2: "Add loading spinner to submit button" → SIMPLE
+
+```
+Quick check: Single file, clear scope? YES → SIMPLE
+Action: Delegate with context
+
+Task: Add loading spinner to submit button. Show spinner while form submits, disable button during loading.
+subagent_type: coder
+```
+
+### Example 3: "Add dark mode toggle" → SIMPLE
+
+```
+Quick check: Needs planning? Borderline, but scope is clear
+Assessment: 2 files, no deps, no DB, simple logic
 Score: 6 → Simple
-Workflow: Coder only
+Action: Delegate to coder with context (no spec needed)
 
-Action: Delegate directly to coder
+Task: Add dark mode toggle. Create toggle in settings, persist preference in localStorage, apply dark theme class to body.
+subagent_type: coder
 ```
 
-### Example 2: "Add user profile page with avatar upload"
+### Example 4: "Add user profile page with avatar upload" → MEDIUM
 
 ```
-Assessment: 4 files, 1 dep (image lib), add column, no API, some logic, medium risk
+Quick check: Needs planning? YES (multiple files, new feature)
+Assessment: 4 files, 1 dep (image lib), add column, some logic
 Score: 11 → Medium
 Workflow: Coder → QA
 
 Action: Create spec, delegate to coder
 ```
 
-### Example 3: "Integrate Stripe payments"
+### Example 5: "Integrate Stripe payments" → COMPLEX
 
 ```
+Quick check: Needs planning? YES (new integration, high risk)
 Assessment: 8+ files, new dep, new tables, new API, complex logic, high risk
 Score: 17 → Complex
 Workflow: Feature-Refiner → Coder → QA
@@ -301,7 +354,7 @@ Workflow: Feature-Refiner → Coder → QA
 Action: Create spec, delegate to feature-refiner, update spec, delegate to coder
 ```
 
-### Example 4: "Build admin dashboard with API and UI"
+### Example 6: "Build admin dashboard with API and UI" → PARALLEL
 
 ```
 Assessment: Complex BUT has independent parts
