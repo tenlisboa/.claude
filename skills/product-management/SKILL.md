@@ -1,6 +1,6 @@
 ---
 name: product-management
-description: Orchestrates ALL implementation requests. Use when user asks to implement, add, create, build, refactor, adjust, fix, update, or change any feature or code. Also triggers on "produto", "PM", "spec", "feature", "requirement", "BDD". Handles both simple tasks (direct to coder) and complex workflows (feature-refiner → coder → qa).
+description: MANDATORY for ANY code change. MUST invoke BEFORE writing/editing code. Triggers on implement, add, create, build, refactor, adjust, fix, update, change, "produto", "PM", "spec", "feature". Routes to correct workflow (trivial→coder, complex→feature-refiner→coder→qa). NEVER skip - even if you "already know what to do".
 allowed-tools: Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
 ---
 
