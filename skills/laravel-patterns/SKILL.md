@@ -4,6 +4,10 @@ description: Laravel 12 best practices, Eloquent patterns, service classes, Form
 allowed-tools: Read, Grep, Glob, Bash
 ---
 
+# Helper Scripts Available:
+
+- `scripts/linter-formatter.sh` - Formats php code, always execute with the --help flag first to check the args
+
 # Laravel Development Patterns
 
 ## Architecture Principles
@@ -143,6 +147,6 @@ describe('UserService', function () {
 
 - Use Redis for cache and sessions
 - Queue heavy operations (emails, exports)
-- Use `php artisan optimize` in production
+- Use `sail|php artisan optimize` in production
 - Enable OPcache
 - Use database indexes strategically
