@@ -1,3 +1,15 @@
 {
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/rio/UserPromptSubmit/hook.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
