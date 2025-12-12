@@ -20,22 +20,25 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
+  // Keywords for feature-refiner agent: refining requests into specifications
   const keywords = [
-    'refine',
-    'simplify',
-    'architect',
-    'specification',
-    'research',
-    'analyze',
-    'clarify',
-    'best practices',
+    "refine",
+    "architecture",
+    "specification",
+    "simplify",
+    "research",
+    "analyze",
+    "design",
+    "evaluate"
   ];
 
+  // Count matching keywords
   const matchCount = keywords.filter((keyword) => prompt.includes(keyword)).length;
 
+  // IMPORTANT: All fields are MANDATORY and must not be undefined/null
   return {
-    version: '2.0',
-    matchCount: matchCount,
-    type: 'agent',
+    version: '2.0', // Required: always "2.0"
+    matchCount: matchCount, // Required: number of matches (0+)
+    type: 'agent', // Type: agent for feature-refiner
   };
 };

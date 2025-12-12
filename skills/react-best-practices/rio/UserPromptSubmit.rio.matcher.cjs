@@ -27,7 +27,7 @@ module.exports = function (context) {
     'component',
     'state management',
     'memo',
-    'useeffect',
+    'jsx',
     'zustand',
   ];
 

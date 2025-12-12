@@ -20,15 +20,16 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
+  // Keywords for python-fastapi-ai skill
   const keywords = [
-    'review',
-    'code review',
-    'audit',
-    'analyze',
-    'investigate',
-    'check for issues',
-    'refactor',
-    'qa',
+    'fastapi',
+    'pydantic',
+    'alembic',
+    'langchain',
+    'async',
+    'llm',
+    'migration',
+    'embedding'
   ];
 
   // Count matching keywords
@@ -38,6 +39,6 @@ module.exports = function (context) {
   return {
     version: '2.0', // Required: always "2.0"
     matchCount: matchCount, // Required: number of matches (0+)
-    type: 'agent', // qa-code-reviewer is an agent
+    type: 'skill', // Required: 'skill' for this matcher
   };
 };

@@ -30,6 +30,8 @@ module.exports = function (context) {
     'update',
     'create',
     'build',
+    'spec',
+    'test',
   ];
 
   // Count matching keywords
