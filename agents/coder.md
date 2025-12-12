@@ -3,7 +3,7 @@ name: coder
 description: Expert implementation agent. Use for coding tasks after requirements are clear. ALWAYS delegates to qa-code-reviewer after implementation. Proactively invoked for any code writing task.
 model: sonnet
 color: cyan
-skills: atomic-commits, laravel-patterns, react-best-practices
+skills: atomic-commits, laravel-patterns, react-best-practices, python-fastapi-ai
 permissionMode: acceptEdits
 ---
 
