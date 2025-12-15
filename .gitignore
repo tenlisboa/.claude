@@ -9,4 +9,5 @@
 /statsig
 /todos
 /history.jsonl
+/hooks/rio/logs
 .credentials.json
