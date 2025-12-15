@@ -50,6 +50,38 @@ def process_cpu_intensive(data: ProcessRequest):
     return heavy_computation(data)
 ```
 
+### Route Path Conventions (Trailing Slashes)
+
+**Be consistent** - FastAPI returns 307 redirects when trailing slash doesn't match.
+
+**Recommended: NO trailing slashes** (simpler, matches REST conventions)
+
+```python
+router = APIRouter(prefix="/users", tags=["users"])
+
+# Root collection routes - NO trailing slash
+@router.post("")  # POST /users
+@router.get("")   # GET /users
+
+# Resource routes - NO trailing slash
+@router.get("/{user_id}")           # GET /users/{id}
+@router.patch("/{user_id}")         # PATCH /users/{id}
+@router.delete("/{user_id}")        # DELETE /users/{id}
+
+# Nested routes - NO trailing slash
+@router.get("/{user_id}/posts")     # GET /users/{id}/posts
+@router.post("/{user_id}/posts")    # POST /users/{id}/posts
+```
+
+**Alternative: WITH trailing slashes** (if you prefer)
+
+```python
+@router.post("/")  # POST /users/
+@router.get("/")   # GET /users/
+```
+
+**NEVER mix** - pick one style and use it everywhere.
+
 ### Async Patterns
 
 ```python
@@ -97,19 +129,25 @@ ValidPost = Annotated[Post, Depends(valid_post_id)]
 
 - Controllers should be thin (max 10 lines)
 - Business logic lives in Service classes
+- **NEVER name methods `list`** in classes with SQLAlchemy models - shadows Python's builtin `list` type, breaking type hints like `list[Model]` later in the class. Use `list_all`, `find_all`, or `get_all` instead.
 
 ```python
 class UserService:
-    def __init__(self, user_repo: UserRepository, email_service: EmailService):
-        self.user_repo = user_repo
-        self.email_service = email_service
+    def __init__(self, db: AsyncSession):
+        self.db = db
 
-    async def create_user(self, db: AsyncSession, data: UserCreate) -> User:
-        if await self.user_repo.get_by_email(db, data.email):
-            raise DuplicateEmailError()
-        user = await self.user_repo.create(db, data)
-        await self.email_service.send_welcome(user.email)
-        return user
+    async def create(self, data: UserCreate) -> User:
+        ...
+
+    # WRONG: shadows builtin, breaks `list[User]` type hint below
+    async def list(self, page: int = 1) -> tuple[list[User], int]:
+        ...
+
+    # CORRECT: use list_all instead
+    async def list_all(self, page: int = 1, limit: int = 20) -> tuple[list[User], int]:
+        stmt = select(User).offset((page - 1) * limit).limit(limit)
+        result = await self.db.execute(stmt)
+        return list(result.scalars().all()), total
 ```
 
 # Pydantic v2 Best Practices

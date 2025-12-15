@@ -20,16 +20,17 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for feature-refiner agent: refining requests into specifications
+  // Keywords for feature-refiner agent: transforms feature requests into specifications
   const keywords = [
     "refine",
-    "architecture",
-    "specification",
     "simplify",
-    "research",
-    "analyze",
+    "architect",
     "design",
-    "evaluate"
+    "plan",
+    "analyze",
+    "research",
+    "investigate",
+    "clarify"
   ];
 
   // Count matching keywords

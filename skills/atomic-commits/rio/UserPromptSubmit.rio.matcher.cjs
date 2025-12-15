@@ -20,16 +20,16 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for atomic-commits skill
+  // Keywords for atomic-commits skill matching
   const keywords = [
-    'git',
     'commit',
+    'git',
     'feat',
     'fix',
+    'staged changes',
     'stage',
     'refactor',
-    'semantic commit',
-    'diff'
+    'changes',
   ];
 
   // Count matching keywords
@@ -39,6 +39,6 @@ module.exports = function (context) {
   return {
     version: '2.0', // Required: always "2.0"
     matchCount: matchCount, // Required: number of matches (0+)
-    type: 'skill', // Required: 'skill' or 'agent'
+    type: 'skill', // atomic-commits is a skill
   };
 };

@@ -20,15 +20,15 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for product-management skill
+  // Keywords for debug command - error analysis and fixing
   const keywords = [
-    'implement',
-    'spec',
-    'feature',
-    'refactor',
+    'debug',
     'fix',
-    'build',
-    'pm'
+    'error',
+    'stacktrace',
+    'analyze',
+    'troubleshoot',
+    'trace'
   ];
 
   // Count matching keywords
@@ -38,6 +38,6 @@ module.exports = function (context) {
   return {
     version: '2.0', // Required: always "2.0"
     matchCount: matchCount, // Required: number of matches (0+)
-    type: 'skill', // Required: skill type
+    type: 'command', // Haiku sets to 'command' for slash commands
   };
 };

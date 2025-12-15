@@ -1,9 +1,9 @@
 /**
- * Universal UserPromptSubmit Matcher Template (v2.0)
+ * UserPromptSubmit Matcher for qa-code-reviewer Agent (v2.0)
  *
- * This template is used by the `setup` command to auto-generate
- * matchers for skills and agents. Claude Haiku fills in the keywords array
- * based on the skill/agent description.
+ * Triggers when user requests code review, analysis, or quality assessment.
+ * This agent performs rigorous systematic reviews focusing on maintainability,
+ * reliability, and architectural soundness.
  *
  * IMPORTANT: All return fields are MANDATORY and must not be undefined/null.
  *
@@ -23,12 +23,12 @@ module.exports = function (context) {
   const keywords = [
     'review',
     'code review',
+    'check for issues',
     'audit',
     'analyze',
-    'investigate',
-    'check for issues',
+    'examine',
     'refactor',
-    'qa',
+    'improve architecture',
   ];
 
   // Count matching keywords

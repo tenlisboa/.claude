@@ -26,9 +26,9 @@ module.exports = function (context) {
     'typescript',
     'component',
     'state management',
+    'useeffect',
     'memo',
-    'jsx',
-    'zustand',
+    'performance',
   ];
 
   // Count matching keywords
