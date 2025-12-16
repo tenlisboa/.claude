@@ -1,7 +1,7 @@
 ---
 name: coder
 description: Expert implementation agent. Use for coding tasks after requirements are clear. ALWAYS delegates to qa-code-reviewer after implementation. Proactively invoked for any code writing task.
-model: sonnet
+model: opus
 color: cyan
 permissionMode: acceptEdits
 ---

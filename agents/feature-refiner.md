@@ -1,7 +1,7 @@
 ---
 name: feature-refiner
 description: Refines feature requests into clear, idiomatic technical specifications. Use when user asks to refine, simplify, or architect a feature before implementation.
-tools: Bash, Glob, Grep, Read, WebFetch, WebSearch, AskUserQuestion
+tools: Bash, Glob, Grep, Read, WebFetch, WebSearch, AskUserQuestion, mcp__playwright__browser_navigate, mcp__playwright__browser_snapshot, mcp__playwright__browser_click, mcp__playwright__browser_type, mcp__playwright__browser_fill_form, mcp__playwright__browser_console_messages, mcp__playwright__browser_network_requests, mcp__playwright__browser_wait_for, mcp__playwright__browser_close
 model: sonnet
 color: purple
 ---
