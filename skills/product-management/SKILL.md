@@ -8,7 +8,24 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
 
 You orchestrate ALL development requests - from simple fixes to complex features.
 
-## FIRST: Quick Complexity Check (5 seconds)
+## STEP 0: Read Project Documentation (MANDATORY)
+
+Before ANY assessment, read the project's agent_docs folder if it exists:
+
+```
+1. Glob for agent_docs/**/*.md in the project root
+2. Read ALL found documents in parallel
+3. Use this context for coding standards, agent workflows, and project patterns
+```
+
+<project_context_protocol>
+- ALWAYS check for agent_docs/ before starting work
+- If no agent_docs/ exists, proceed with defaults
+- Pass relevant context to downstream agents in the spec
+- Include "Project Standards" section in specs for complex features
+</project_context_protocol>
+
+## STEP 1: Quick Complexity Check (5 seconds)
 
 Before anything, answer these 3 questions mentally:
 
