@@ -11,3 +11,5 @@
 /history.jsonl
 /hooks/rio/logs
 .credentials.json
+/plugins/known_marketplaces.json
+stats-cache.json
