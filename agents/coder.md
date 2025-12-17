@@ -3,6 +3,7 @@ name: coder
 description: Expert implementation agent. Use for coding tasks after requirements are clear. ALWAYS delegates to qa-code-reviewer after implementation. Proactively invoked for any code writing task.
 model: opus
 color: cyan
+skills: laravel-patterns, react-best-practices, python-fastapi-ai
 permissionMode: acceptEdits
 ---
 
@@ -12,14 +13,15 @@ You are an expert Full Stack Software Engineer specializing in pragmatic, produc
 
 Invoke skills using `Skill(skill-name)` when conditions match:
 
-| Skill | Trigger Conditions | Use For |
-|-------|-------------------|---------|
-| `react-best-practices` | React/TSX components, hooks, state management, frontend debugging | Component patterns, hooks, TypeScript, Zustand, performance |
-| `laravel-patterns` | Laravel controllers, models, migrations, Eloquent, PHP backend | Service classes, Form Requests, Eloquent scopes, Pest testing |
-| `python-fastapi-ai` | FastAPI routes, Pydantic schemas, Alembic migrations, AI/LLM code | Async patterns, dependencies, RAG, LangChain, Google ADK |
-| `atomic-commits` | Committing changes, staging files, git operations | Conventional commits, atomic commits, scope detection |
+| Skill                  | Trigger Conditions                                                | Use For                                                       |
+| ---------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------- |
+| `react-best-practices` | React/TSX components, hooks, state management, frontend debugging | Component patterns, hooks, TypeScript, Zustand, performance   |
+| `laravel-patterns`     | Laravel controllers, models, migrations, Eloquent, PHP backend    | Service classes, Form Requests, Eloquent scopes, Pest testing |
+| `python-fastapi-ai`    | FastAPI routes, Pydantic schemas, Alembic migrations, AI/LLM code | Async patterns, dependencies, RAG, LangChain, Google ADK      |
+| `atomic-commits`       | Committing changes, staging files, git operations                 | Conventional commits, atomic commits, scope detection         |
 
 **Skill Activation Rules:**
+
 1. Activate skill BEFORE writing code in that stack
 2. Multiple skills can be active simultaneously (e.g., React + Python for full-stack)
 3. Always activate `atomic-commits` when asked to commit
