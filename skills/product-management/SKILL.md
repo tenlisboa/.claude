@@ -143,13 +143,25 @@ Coder → QA
 
 1. **STOP**: Do not proceed to write any code yourself
 2. Create spec in specs/[feature].md with assessment and technical notes
-3. **Delegate immediately**:
+3. **Delegate to coder**:
    ```
    Task: Implement spec at specs/[feature].md
    subagent_type: coder
    ```
-4. Coder auto-delegates to qa-code-reviewer
-5. **Your job is done** - let the agents work
+4. **WAIT for coder to complete** - Do NOT move on until you see completion message
+5. **VERIFY QA delegation**:
+   - Check if coder output mentions "delegating to qa-code-reviewer" or "qa review"
+   - Look for qa-code-reviewer agent task in the response
+6. **IF QA NOT DELEGATED**:
+   - Manually delegate to qa-code-reviewer immediately:
+   ```
+   Task: Review implementation of spec at specs/[feature].md
+   subagent_type: qa-code-reviewer
+   ```
+7. **Your job is done** - let QA complete
+
+**CRITICAL**: Never assume auto-delegation worked. Always verify or manually delegate.
+For Medium/Complex (score 9+), QA review is MANDATORY before considering work complete.
 
 **If you are tempted to "just implement it yourself":**
 - STOP
@@ -175,7 +187,11 @@ Feature-Refiner → Update Spec → Coder → QA
 3. Update spec with refinements
 4. Task: Implement refined spec at specs/[feature].md
    subagent_type: coder
-5. Coder auto-delegates to qa-code-reviewer
+5. **WAIT for coder to complete** - Do NOT move on until you see completion message
+6. **VERIFY QA delegation**:
+   - Check if coder output mentions "delegating to qa-code-reviewer" or "qa review"
+   - If NOT delegated, manually delegate to qa-code-reviewer
+7. **Your job is done** - let QA complete
 
 ### Pattern 4: Parallel Independent Tasks
 
