@@ -20,15 +20,16 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Feature-refiner agent: transforms feature requests into technical specifications
+  // Keywords for feature-refiner agent: specification design and architectural analysis
   const keywords = [
     'refine',
-    'specify',
     'architecture',
     'simplify',
     'design',
-    'approach',
-    'clarify',
+    'research',
+    'analyze',
+    'investigate',
+    'plan'
   ];
 
   // Count matching keywords
@@ -38,6 +39,6 @@ module.exports = function (context) {
   return {
     version: '2.0', // Required: always "2.0"
     matchCount: matchCount, // Required: number of matches (0+)
-    type: 'agent', // agent type
+    type: 'agent', // This is an agent matcher
   };
 };

@@ -7,10 +7,6 @@
           {
             "type": "command",
             "command": "bash $HOME/.claude/hooks/rio/UserPromptSubmit/hook.sh"
-          },
-          {
-            "type": "command",
-            "command": "bash $HOME/.claude/hooks/force-skill-eval.sh"
           }
         ]
       }

@@ -25,6 +25,7 @@ module.exports = function (context) {
     'pydantic',
     'alembic',
     'async',
+    'python',
     'sqlalchemy',
     'langchain',
     'migration'

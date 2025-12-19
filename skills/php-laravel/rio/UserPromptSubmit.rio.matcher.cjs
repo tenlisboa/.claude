@@ -27,8 +27,9 @@ module.exports = function (context) {
     'migration',
     'controller',
     'form request',
+    'service class',
+    'pest',
     'php',
-    'service',
   ];
 
   // Count matching keywords

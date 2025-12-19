@@ -20,16 +20,16 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for skill-creator: focuses on skill creation and workflow design
+  // Keywords for skill-creator: focuses on creating and managing skills
   const keywords = [
     'skill',
     'create',
-    'workflow',
-    'extend',
+    'skill.md',
+    'package',
+    'validate',
     'script',
-    'reference',
-    'matcher',
-    'frontmatter'
+    'assets',
+    'resources'
   ];
 
   // Count matching keywords

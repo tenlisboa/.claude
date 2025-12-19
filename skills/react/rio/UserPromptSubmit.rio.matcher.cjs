@@ -23,12 +23,12 @@ module.exports = function (context) {
   const keywords = [
     'react',
     'component',
-    'hooks',
-    'typescript',
+    'hook',
     'jsx',
-    'state management',
-    'zustand',
-    'error boundary',
+    'typescript',
+    'state',
+    'prop',
+    'debug'
   ];
 
   // Count matching keywords
