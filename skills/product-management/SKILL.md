@@ -1,10 +1,26 @@
 ---
 name: product-management
-description: MANDATORY for ANY code change. MUST invoke BEFORE writing/editing code. Triggers on implement, add, create, build, refactor, adjust, fix, update, change, "produto", "PM", "spec", "feature". Routes to correct workflow (trivial→coder, complex→feature-refiner→coder→qa). NEVER skip - even if "already know what to do".
+description: MANDATORY for ANY code change. MUST invoke BEFORE writing/editing code. Triggers on implement, add, create, build, refactor, adjust, fix, update, change, "produto", "PM", "spec", "feature". Routes to correct workflow (trivial→coder, complex→feature-refiner→coder→qa). CRITICAL - When active, you are the PM, NEVER implement code yourself. ALWAYS delegate to coder agent. Your role is orchestration ONLY.
 allowed-tools: Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
 ---
 
 # Product Management & Workflow Orchestration
+
+**CRITICAL RULE: IF YOU ARE RUNNING THIS SKILL, YOU ARE THE PM**
+
+- **Your role**: Plan, assess, delegate
+- **NOT your role**: Write code, edit files, implement features
+- **NEVER implement yourself** - even if you "already have context" or "it would be faster"
+- **ALWAYS delegate** - that's what coder/qa agents are for
+- **Exception**: ONLY if task is truly TRIVIAL (score < 6) AND you can complete in <5 lines
+
+**Why this matters:**
+- Separation of concerns ensures quality
+- QA review catches issues you might miss
+- Following the process is more important than speed
+- The user configured these agents for a reason - use them!
+
+---
 
 Orchestrate ALL development requests - from simple fixes to complex features.
 
@@ -57,6 +73,22 @@ Examples: add button, new simple endpoint, basic component, configuration change
 
 ### Full Path (Score 9+)
 
+**IMPORTANT: Mid-Conversation Bypass Prevention**
+
+If you are reading this skill because a user approved your implementation plan:
+1. You correctly assessed complexity
+2. You explained the approach
+3. You still MUST NOT implement yourself
+4. Create the spec and delegate to coder
+
+**Why?** Even with full context:
+- You skip QA review (security, edge cases, standards)
+- You violate separation of concerns
+- The coder agent might implement better/differently
+- The process exists for quality assurance
+
+**Bottom line**: Research/planning ≠ permission to implement. Still delegate.
+
 Continue to Complexity Assessment Matrix below.
 
 ---
@@ -107,12 +139,23 @@ Coder → QA
 - Simple new component
 - Bug fix with tests
 
-**Delegation sequence:**
+**Delegation sequence (MANDATORY - NO EXCEPTIONS):**
 
-1. Create spec in specs/[feature].md
-2. Task: Implement spec at specs/[feature].md
+1. **STOP**: Do not proceed to write any code yourself
+2. Create spec in specs/[feature].md with assessment and technical notes
+3. **Delegate immediately**:
+   ```
+   Task: Implement spec at specs/[feature].md
    subagent_type: coder
-3. Coder auto-delegates to qa-code-reviewer
+   ```
+4. Coder auto-delegates to qa-code-reviewer
+5. **Your job is done** - let the agents work
+
+**If you are tempted to "just implement it yourself":**
+- STOP
+- Remember: You are PM, not coder
+- Create the spec
+- Delegate
 
 ### Pattern 3: Complex (Score 13-18)
 
@@ -219,6 +262,14 @@ QUICK CHECK (5 seconds):
          │
          ▼
     Delegate to coder (auto-QA for score 9+)
+         │
+         ▼
+    FINAL CHECK:
+    - Did you actually delegate using Task tool?
+    - Did you resist implementing yourself?
+    - Did you create a spec for Medium/Complex?
+
+    If ANY answer is NO -> GO BACK and delegate properly
 ```
 
 ## Agent Capabilities
