@@ -20,17 +20,15 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for feature-refiner agent: transforms feature requests into specifications
+  // Feature-refiner agent: transforms feature requests into technical specifications
   const keywords = [
-    "refine",
-    "simplify",
-    "architect",
-    "design",
-    "plan",
-    "analyze",
-    "research",
-    "investigate",
-    "clarify"
+    'refine',
+    'specify',
+    'architecture',
+    'simplify',
+    'design',
+    'approach',
+    'clarify',
   ];
 
   // Count matching keywords
@@ -40,6 +38,6 @@ module.exports = function (context) {
   return {
     version: '2.0', // Required: always "2.0"
     matchCount: matchCount, // Required: number of matches (0+)
-    type: 'agent', // Type: agent for feature-refiner
+    type: 'agent', // agent type
   };
 };

@@ -20,15 +20,16 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
+  // Keywords for skill-creator: focuses on skill creation and workflow design
   const keywords = [
-    'write',
-    'implement',
-    'refactor',
-    'fix',
-    'update',
+    'skill',
     'create',
-    'add',
-    'build',
+    'workflow',
+    'extend',
+    'script',
+    'reference',
+    'matcher',
+    'frontmatter'
   ];
 
   // Count matching keywords
@@ -36,8 +37,8 @@ module.exports = function (context) {
 
   // IMPORTANT: All fields are MANDATORY and must not be undefined/null
   return {
-    version: '2.0',
-    matchCount: matchCount,
-    type: 'agent',
+    version: '2.0', // Required: always "2.0"
+    matchCount: matchCount, // Required: number of matches (0+)
+    type: 'skill', // Required: this is a skill matcher
   };
 };

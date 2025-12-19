@@ -20,16 +20,15 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for Laravel patterns skill
+  // Keywords for Laravel skill matching
   const keywords = [
     'laravel',
     'eloquent',
     'migration',
-    'service',
-    'form request',
     'controller',
-    'model',
-    'php'
+    'form request',
+    'php',
+    'service',
   ];
 
   // Count matching keywords
@@ -39,6 +38,6 @@ module.exports = function (context) {
   return {
     version: '2.0', // Required: always "2.0"
     matchCount: matchCount, // Required: number of matches (0+)
-    type: 'skill', // Required: identifies this as a skill matcher
+    type: 'skill', // Required: skill or agent
   };
 };

@@ -20,16 +20,14 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for python-fastapi-ai skill
   const keywords = [
     'fastapi',
     'pydantic',
     'alembic',
-    'langchain',
     'async',
-    'llm',
-    'migration',
-    'embedding'
+    'sqlalchemy',
+    'langchain',
+    'migration'
   ];
 
   // Count matching keywords
@@ -39,6 +37,6 @@ module.exports = function (context) {
   return {
     version: '2.0', // Required: always "2.0"
     matchCount: matchCount, // Required: number of matches (0+)
-    type: 'skill', // Required: 'skill' for this matcher
+    type: 'skill', // python-fastapi-ai is a skill
   };
 };

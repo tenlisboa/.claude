@@ -20,15 +20,17 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for product-management skill
+  // Keywords extracted from product-management skill description
+  // Focuses on: code change triggers, workflow keywords, agent names, and orchestration terms
   const keywords = [
     'implement',
     'spec',
     'feature',
     'refactor',
-    'fix',
-    'build',
-    'pm'
+    'complexity',
+    'coder',
+    'feature-refiner',
+    'fix'
   ];
 
   // Count matching keywords
@@ -38,6 +40,6 @@ module.exports = function (context) {
   return {
     version: '2.0', // Required: always "2.0"
     matchCount: matchCount, // Required: number of matches (0+)
-    type: 'skill', // Required: skill type
+    type: 'skill', // Product-management is a skill
   };
 };

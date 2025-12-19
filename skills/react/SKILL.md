@@ -1,7 +1,6 @@
 ---
-name: react-best-practices
-description: Modern React 18+ patterns with TypeScript, hooks, state management, and performance optimization. Use when building React components, debugging frontend issues, or reviewing React code.
-allowed-tools: Read, Grep, Glob
+name: react
+description: Modern React 18+ patterns with TypeScript, hooks, state management, and performance optimization. This skill should be used when building React components, debugging frontend issues, or reviewing React code. (user)
 ---
 
 # React Best Practices (2025)
@@ -50,6 +49,43 @@ function UserCard({ user, onSelect }: UserCardProps) {
   </Parent>
 </UserProvider>
 ```
+
+## Page Patterns
+
+### Unified Create/Edit Form
+
+Single form component handles both modes via optional entity prop:
+
+```tsx
+interface EntityFormProps {
+  entity?: Entity;
+  onSuccess: (entity: Entity) => void;
+  onCancel: () => void;
+}
+
+function EntityForm({ entity, onSuccess, onCancel }: EntityFormProps) {
+  const isEdit = Boolean(entity);
+  const [formData, setFormData] = useState(entity ?? initialFormData);
+
+  // Conditional mutation based on mode
+  // Edit-only features (delete, publish) render when isEdit
+}
+```
+
+Pages become thin wrappers:
+
+```tsx
+// CreatePage
+<EntityForm onSuccess={(e) => navigate(`/entities/${e.id}`)} onCancel={() => navigate('/entities')} />
+
+// EditPage - fetch data first
+const { data: entity } = useEntity(id);
+<EntityForm entity={entity} onSuccess={...} onCancel={...} />
+```
+
+### Reusable UI Components
+
+Extract repeated patterns: `Pagination`, `Snackbar`, `DeleteConfirmModal`, `StatusBadge`
 
 ## Hooks Best Practices
 
