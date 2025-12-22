@@ -3,7 +3,6 @@ name: qa-code-reviewer
 description: Use this agent after the 'coder' agent completes code implementation when explicitly asked for or applies review feedback.
 model: sonnet
 permissionMode: default
-skills: atomic-commits
 color: red
 ---
 

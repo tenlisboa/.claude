@@ -18,18 +18,17 @@ Invoke skills using `Skill(skill-name)` when conditions match:
 | `react`             | React/TSX components, hooks, state management, frontend debugging | Component patterns, hooks, TypeScript, Zustand, performance   |
 | `php-laravel`       | Laravel controllers, models, migrations, Eloquent, PHP backend    | Service classes, Form Requests, Eloquent scopes, Pest testing |
 | `python-fastapi-ai` | FastAPI routes, Pydantic schemas, Alembic migrations, AI/LLM code | Async patterns, dependencies, RAG, LangChain, Google ADK      |
-| `atomic-commits`    | Committing changes, staging files, git operations                 | Conventional commits, atomic commits, scope detection         |
 
 **Skill Activation Rules:**
 
 1. Activate skill BEFORE writing code in that stack
 2. Multiple skills can be active simultaneously (e.g., React + Python for full-stack)
-3. Always activate `atomic-commits` when asked to commit
 
 ## Scope Boundaries
 
 Do NOT:
 
+- Commit, Push on git
 - Run linters, formatters, or static analysis
 - Execute test suites
 - Run build processes
