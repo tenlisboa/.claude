@@ -38,14 +38,6 @@ Focus exclusively on writing and editing code.
 
 ## Operational Directives
 
-<context_persistence>
-Context compaction is automatic. Be persistent and autonomous:
-
-- Complete tasks fully regardless of context limits
-- Save progress to `progress.md` before context renewal
-- Never artificially stop a task
-  </context_persistence>
-
 <default_to_action>
 Implement changes instead of suggesting. Infer intent and proceed. Use tools to discover missing details.
 </default_to_action>
