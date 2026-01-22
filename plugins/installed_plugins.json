@@ -1,4 +1,107 @@
 {
   "version": 2,
-  "plugins": {}
+  "plugins": {
+    "feature-dev@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/feature-dev/e30768372b41",
+        "version": "e30768372b41",
+        "installedAt": "2026-01-10T21:30:42.564Z",
+        "lastUpdated": "2026-01-21T13:15:08.572Z",
+        "gitCommitSha": "b46a249074e00e6531a0222afbeb91c3e707cf54"
+      }
+    ],
+    "vercel@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "/home/lisboa/Project/AI/px-ai-platform-core",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/vercel/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-10T21:31:42.494Z",
+        "lastUpdated": "2026-01-10T21:31:42.494Z",
+        "gitCommitSha": "ae067751b4f42c97d13054211657275029ca8b6d"
+      }
+    ],
+    "frontend-design@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/frontend-design/e30768372b41",
+        "version": "e30768372b41",
+        "installedAt": "2026-01-10T21:32:30.229Z",
+        "lastUpdated": "2026-01-21T13:15:08.581Z",
+        "gitCommitSha": "b46a249074e00e6531a0222afbeb91c3e707cf54"
+      }
+    ],
+    "github@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/github/e30768372b41",
+        "version": "e30768372b41",
+        "installedAt": "2026-01-10T21:32:30.240Z",
+        "lastUpdated": "2026-01-21T13:15:08.588Z",
+        "gitCommitSha": "b46a249074e00e6531a0222afbeb91c3e707cf54"
+      }
+    ],
+    "code-review@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/code-review/e30768372b41",
+        "version": "e30768372b41",
+        "installedAt": "2026-01-10T21:32:30.250Z",
+        "lastUpdated": "2026-01-21T13:15:08.595Z",
+        "gitCommitSha": "b46a249074e00e6531a0222afbeb91c3e707cf54"
+      }
+    ],
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-10T21:32:30.261Z",
+        "lastUpdated": "2026-01-10T21:32:30.261Z",
+        "gitCommitSha": "b46a249074e00e6531a0222afbeb91c3e707cf54"
+      }
+    ],
+    "security-guidance@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/security-guidance/e30768372b41",
+        "version": "e30768372b41",
+        "installedAt": "2026-01-10T21:32:30.277Z",
+        "lastUpdated": "2026-01-21T13:15:08.603Z",
+        "gitCommitSha": "b46a249074e00e6531a0222afbeb91c3e707cf54"
+      }
+    ],
+    "playwright@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/playwright/e30768372b41",
+        "version": "e30768372b41",
+        "installedAt": "2026-01-10T21:32:30.288Z",
+        "lastUpdated": "2026-01-21T13:15:08.609Z",
+        "gitCommitSha": "b46a249074e00e6531a0222afbeb91c3e707cf54"
+      }
+    ],
+    "atlassian@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/atlassian/7caef65e1070",
+        "version": "7caef65e1070",
+        "installedAt": "2026-01-10T21:32:32.896Z",
+        "lastUpdated": "2026-01-17T01:41:43.489Z",
+        "gitCommitSha": "fc6afe7f2ae885a54eb7fb13339add33fe0a8ff4"
+      }
+    ],
+    "code-simplifier@claude-plugins-official": [
+      {
+        "scope": "local",
+        "projectPath": "/home/lisboa/Project/AI/px-ai-platform-core",
+        "installPath": "/home/lisboa/.claude/plugins/cache/claude-plugins-official/code-simplifier/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-10T21:36:18.725Z",
+        "lastUpdated": "2026-01-10T21:36:18.725Z",
+        "gitCommitSha": "b46a249074e00e6531a0222afbeb91c3e707cf54"
+      }
+    ]
+  }
 }

@@ -20,16 +20,21 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for product-management skill
+  // Keywords for product-management skill (synced with description triggers)
   const keywords = [
     'implement',
-    'feature',
+    'add',
+    'create',
+    'build',
     'refactor',
+    'adjust',
+    'fix',
+    'update',
+    'change',
+    'produto',
+    'pm',
     'spec',
-    'delegate',
-    'coder',
-    'qa',
-    'orchestrate'
+    'feature'
   ];
 
   // Count matching keywords

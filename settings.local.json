@@ -7,7 +7,9 @@
       "WebFetch(domain:marekbrze.com)",
       "WebFetch(domain:community.n8n.io)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:freshbrewed.science)"
+      "WebFetch(domain:freshbrewed.science)",
+      "mcp__github__pull_request_read",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

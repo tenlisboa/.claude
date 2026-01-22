@@ -23,13 +23,12 @@ module.exports = function (context) {
   // Keywords for skill-creator: focuses on creating and managing skills
   const keywords = [
     'skill',
-    'create',
+    'create skill',
     'skill.md',
-    'package',
-    'validate',
-    'script',
-    'assets',
-    'resources'
+    'frontmatter',
+    'scripts',
+    'references',
+    'assets'
   ];
 
   // Count matching keywords

@@ -1,11 +1,9 @@
 /**
- * Universal UserPromptSubmit Matcher Template (v2.0)
+ * UserPromptSubmit Matcher for coder agent (v2.0)
  *
- * This template is used by the `setup` command to auto-generate
- * matchers for skills and agents. Claude Haiku fills in the keywords array
- * based on the skill/agent description.
- *
- * IMPORTANT: All return fields are MANDATORY and must not be undefined/null.
+ * The coder agent is an expert implementation agent specializing in pragmatic,
+ * production-grade code. It handles direct coding tasks across React, Laravel,
+ * and Python/FastAPI stacks.
  *
  * @param {Object} context - Matcher context
  * @param {string} context.prompt - User's prompt text
@@ -21,14 +19,13 @@ module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
   const keywords = [
-    'write',
     'implement',
-    'refactor',
-    'fix',
-    'update',
-    'create',
-    'add',
+    'write code',
     'build',
+    'create',
+    'fix bug',
+    'add feature',
+    'refactor'
   ];
 
   // Count matching keywords
@@ -38,6 +35,6 @@ module.exports = function (context) {
   return {
     version: '2.0',
     matchCount: matchCount,
-    type: 'agent',
+    type: 'agent'
   };
 };

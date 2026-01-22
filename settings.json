@@ -1,5 +1,4 @@
 {
-  "alwaysThinkingEnabled": true,
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -11,5 +10,9 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "atlassian@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true
 }

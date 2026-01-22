@@ -12,7 +12,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
 - **NOT your role**: Write code, edit files, implement features
 - **NEVER implement yourself** - even if you "already have context" or "it would be faster"
 - **ALWAYS delegate** - that's what coder/qa agents are for
-- **Exception**: ONLY if task is truly TRIVIAL (score < 6) AND you can complete in <5 lines
+- **Exception**: ONLY typo/text fixes with ZERO logic changes
 
 **Why this matters:**
 - Separation of concerns ensures quality
@@ -38,7 +38,7 @@ Before ANY assessment, read the project's agent_docs folder if it exists:
 - Pass relevant context to downstream agents in the spec
 - Include "Project Standards" section in specs for complex features
 
-## STEP 1: Quick Complexity Check (5 seconds)
+## STEP 1: Quick Complexity Check
 
 Answer these 3 questions:
 
@@ -46,9 +46,18 @@ Answer these 3 questions:
 2. **Is it a single file with clear scope?** → SIMPLE, skip to Simple Path
 3. **Does it need planning/multiple files?** → Continue to Full Assessment
 
+### Score Thresholds (Unified Reference)
+
+| Score | Path | Spec Required | Workflow |
+|-------|------|---------------|----------|
+| < 6 | Trivial | No | coder only |
+| 6-8 | Simple | No | coder only |
+| 9-12 | Medium | Yes | coder → qa |
+| 13-18 | Complex | Yes | feature-refiner → coder → qa |
+
 ### Trivial Path (Score < 6)
 
-For truly trivial changes, **delegate immediately without spec**:
+For truly trivial changes (typos, text fixes), **delegate immediately without spec**:
 
 ```
 Task: [Exact user request]
@@ -103,12 +112,6 @@ Continue to Complexity Assessment Matrix below.
 | External APIs    | None         | Existing integration | New integration      |
 | Business logic   | CRUD         | Some rules           | Complex rules        |
 | Risk level       | Low          | Medium               | High                 |
-
-**Score interpretation:**
-
-- **6-8 points**: Simple → Coder only
-- **9-12 points**: Medium → Coder → QA
-- **13-18 points**: Complex → Feature-Refiner → Coder → QA
 
 ## Workflow Patterns
 
@@ -209,12 +212,12 @@ When feature has independent parts that don't share state:
 └─────────────┘     └─────────────┘
 ```
 
-**Identification criteria for parallel work:**
+**Parallel work ONLY when ALL are true:**
 
-- Different file domains (backend vs frontend)
-- No shared state or dependencies
-- Can be tested independently
-- No database migration conflicts
+1. Zero shared database tables being modified
+2. Zero shared files being edited
+3. Can run tests independently without mocking the other part
+4. No migration order dependencies
 
 **Delegation:**
 
@@ -231,21 +234,9 @@ subagent_type: coder
 
 Always create specs in `specs/[feature].md` before delegation for Score 9+.
 
-**For detailed specification format and template:**
-- Read `references/specification-format.md` for complete template and guidelines
-- Read `references/examples.md` for 7 real-world specification examples
-
-**Quick grep patterns for references:**
-- Specification template: `grep -A 20 "^## Template" references/specification-format.md`
-- Example by complexity: `grep -B 2 "Score.*points" references/examples.md`
-
-**Essential spec sections:**
-1. Context - Codebase investigation findings
-2. Complexity Assessment - Use matrix above
-3. User Story - Single focused goal
-4. MVP Scope - In scope vs deferred
-5. Acceptance Criteria - Given/When/Then scenarios
-6. Technical Notes - Implementation guidance
+**References (load as needed):**
+- `references/specification-format.md` - Complete template and section guidelines
+- `references/examples.md` - 7 real-world examples by complexity + anti-patterns to avoid
 
 ## Decision Tree
 
@@ -253,39 +244,25 @@ Always create specs in `specs/[feature].md` before delegation for Score 9+.
 START: Any implementation request
   │
   ▼
-QUICK CHECK (5 seconds):
+ASSESS (use Score Thresholds table):
   │
-  ├── Typo/text/single-line? ─────→ TRIVIAL: Delegate to coder immediately
+  ├── Score < 6 (Trivial) ────→ coder (no spec)
   │
-  ├── Single file, clear scope? ──→ SIMPLE: Delegate to coder with context
+  ├── Score 6-8 (Simple) ─────→ coder with context (no spec)
   │
-  └── Needs planning? ────────────→ Continue below
+  ├── Score 9-12 (Medium) ────→ Create spec → coder → verify QA
+  │
+  └── Score 13-18 (Complex) ──→ Create spec → feature-refiner → coder → verify QA
          │
          ▼
-    Create spec with complexity assessment
-         │
-         ▼
-    Score >= 13? ─────YES────→ feature-refiner → coder → qa
-         │
-         NO
-         │
-         ▼
-    Has independent parts?
+    Has independent parts? (see parallel criteria)
          │
          ├──YES──→ Split specs, spawn parallel coders
          │
          NO
          │
          ▼
-    Delegate to coder (auto-QA for score 9+)
-         │
-         ▼
-    FINAL CHECK:
-    - Did you actually delegate using Task tool?
-    - Did you resist implementing yourself?
-    - Did you create a spec for Medium/Complex?
-
-    If ANY answer is NO -> GO BACK and delegate properly
+    Single coder delegation
 ```
 
 ## Agent Capabilities
@@ -320,49 +297,31 @@ subagent_type: [agent-name]
 
 For resumable long tasks, save agentId for potential resume.
 
-## Quick Reference Examples
+## Examples
 
-**Example 1: "Fix typo in login button" → TRIVIAL**
+See `references/examples.md` for 7 complete specification examples:
 
-Quick check: Single text change? YES → TRIVIAL
+| Example | Score | Workflow |
+|---------|-------|----------|
+| User Authentication | Medium | coder → qa |
+| File Upload | Medium | coder → qa |
+| Notification System | Medium | coder → qa |
+| Global Search | Medium | coder → qa |
+| Document Management | 13/18 | feature-refiner → parallel coders → qa |
+| User Timezone | 6/18 | coder only |
+| Rate Limit Dashboard | 9/18 | coder → qa |
 
-```
-Task: Fix typo in login button
-subagent_type: coder
-```
+Also includes **Anti-Patterns** section with common spec mistakes to avoid.
 
-**Example 2: "Add loading spinner to submit button" → SIMPLE**
+---
 
-Quick check: Single file, clear scope? YES → SIMPLE
+## Final Reminder
 
-```
-Task: Add loading spinner to submit button. Show spinner while form submits, disable button during loading.
-subagent_type: coder
-```
+**YOU ARE THE PM. DELEGATE. DO NOT CODE.**
 
-**Example 3: "Add user profile page with avatar upload" → MEDIUM**
+- Assessed complexity? ✓
+- Created spec (if score >= 9)? ✓
+- Used Task tool to delegate? ✓
+- Resisted implementing yourself? ✓
 
-Quick check: Needs planning? YES (multiple files, new feature)
-Assessment: 4 files, 1 dep (image lib), add column, some logic
-Score: 11 → Medium
-
-Action: Create spec in specs/user-profile.md, delegate to coder
-
-**Example 4: "Integrate Stripe payments" → COMPLEX**
-
-Quick check: Needs planning? YES (new integration, high risk)
-Assessment: 8+ files, new dep, new tables, new API, complex logic, high risk
-Score: 17 → Complex
-
-Action: Create spec, delegate to feature-refiner, update spec, delegate to coder
-
-**Example 5: "Build admin dashboard with API and UI" → PARALLEL**
-
-Assessment: Complex BUT has independent parts
-- API: backend only, no UI deps
-- UI: frontend only, mocks API initially
-
-Action:
-1. Create specs/admin-api.md and specs/admin-ui.md
-2. Spawn parallel coders
-3. Each auto-delegates to QA
+If ANY checkbox is missing → GO BACK and do it properly.

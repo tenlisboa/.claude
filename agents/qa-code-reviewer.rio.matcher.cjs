@@ -22,14 +22,14 @@ module.exports = function (context) {
 
   // Keywords for qa-code-reviewer agent
   const keywords = [
-    'review',
     'code review',
-    'check for issues',
+    'review',
     'analyze',
-    'examine',
+    'audit',
     'investigate',
-    'feedback',
-    'critique'
+    'architecture',
+    'quality',
+    'examine'
   ];
 
   // Count matching keywords

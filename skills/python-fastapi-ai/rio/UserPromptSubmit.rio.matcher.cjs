@@ -24,11 +24,11 @@ module.exports = function (context) {
     'fastapi',
     'pydantic',
     'alembic',
-    'async',
-    'python',
-    'sqlalchemy',
     'langchain',
-    'migration'
+    'asyncio',
+    'sqlalchemy',
+    'migration',
+    'async def'
   ];
 
   // Count matching keywords

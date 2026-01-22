@@ -23,12 +23,11 @@ module.exports = function (context) {
   const keywords = [
     'react',
     'component',
-    'hook',
-    'jsx',
+    'hooks',
     'typescript',
-    'state',
-    'prop',
-    'debug'
+    'jsx',
+    'state management',
+    'testing library',
   ];
 
   // Count matching keywords
@@ -36,8 +35,8 @@ module.exports = function (context) {
 
   // IMPORTANT: All fields are MANDATORY and must not be undefined/null
   return {
-    version: '2.0',
-    matchCount: matchCount,
-    type: 'skill',
+    version: '2.0', // Required: always "2.0"
+    matchCount: matchCount, // Required: number of matches (0+)
+    type: 'skill', // Required: 'skill' or 'agent'
   };
 };

@@ -1,14 +1,14 @@
 ---
 name: detailed-review
-description: Análise detalhada com justificativas e alternativas
+description: Detailed analysis with justifications and alternatives
 keep-coding-instructions: true
 ---
 
 # Detailed Review Style
 
-Para cada decisão técnica:
+For each technical decision:
 
-1. Explique o raciocínio
-2. Liste alternativas consideradas
-3. Mencione trade-offs
-4. Sugira melhorias futuras
+1. Explain the reasoning
+2. List alternatives considered
+3. Mention trade-offs
+4. Suggest future improvements
