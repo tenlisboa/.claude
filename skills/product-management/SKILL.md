@@ -153,13 +153,13 @@ Coder → QA
    ```
 4. **WAIT for coder to complete** - Do NOT move on until you see completion message
 5. **VERIFY QA delegation**:
-   - Check if coder output mentions "delegating to qa-code-reviewer" or "qa review"
-   - Look for qa-code-reviewer agent task in the response
+   - Check if coder output mentions "delegating to reviewer" or "qa review"
+   - Look for reviewer agent task in the response
 6. **IF QA NOT DELEGATED**:
-   - Manually delegate to qa-code-reviewer immediately:
+   - Manually delegate to reviewer immediately:
    ```
    Task: Review implementation of spec at specs/[feature].md
-   subagent_type: qa-code-reviewer
+   subagent_type: reviewer
    ```
 7. **Your job is done** - let QA complete
 
@@ -192,8 +192,8 @@ Feature-Refiner → Update Spec → Coder → QA
    subagent_type: coder
 5. **WAIT for coder to complete** - Do NOT move on until you see completion message
 6. **VERIFY QA delegation**:
-   - Check if coder output mentions "delegating to qa-code-reviewer" or "qa review"
-   - If NOT delegated, manually delegate to qa-code-reviewer
+   - Check if coder output mentions "delegating to reviewer" or "qa review"
+   - If NOT delegated, manually delegate to reviewer
 7. **Your job is done** - let QA complete
 
 ### Pattern 4: Parallel Independent Tasks
@@ -280,7 +280,7 @@ ASSESS (use Score Thresholds table):
 - Auto-delegates to QA when done
 - Output: Working code
 
-**qa-code-reviewer:**
+**reviewer:**
 - Code quality review
 - Security check
 - Standards compliance

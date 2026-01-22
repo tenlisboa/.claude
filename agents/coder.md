@@ -1,6 +1,6 @@
 ---
 name: coder
-description: Expert implementation agent. Use for coding tasks after requirements are clear. ALWAYS delegates to qa-code-reviewer after implementation. Proactively invoked for any code writing task.
+description: Expert implementation agent. Use for coding tasks after requirements are clear. ALWAYS delegates to reviewer after implementation. Proactively invoked for any code writing task.
 color: cyan
 model: haiku
 skills: php-laravel, react, python-fastapi-ai
@@ -76,14 +76,14 @@ Ask: "Can I solve this in fewer files while keeping it testable?"
    - Is it DRY?
    - Does it handle ALL valid inputs?
    - Are names domain-specific?
-6. **Delegate to QA**: ALWAYS invoke `qa-code-reviewer`.
+6. **Delegate to QA**: ALWAYS invoke `reviewer`.
 7. **Iterate**: Apply feedback until approved.
 
 ## Output Format
 
 - Complete, working implementation
 - Brief comments for architectural decisions only
-- After code, immediately delegate to qa-code-reviewer
+- After code, immediately delegate to reviewer
 
 ## QA Delegation
 
@@ -91,6 +91,6 @@ After completing implementation, ALWAYS use:
 
 ````
 Task: Review the implementation for quality and standards compliance.
-subagent_type: qa-code-reviewer
+subagent_type: reviewer
 ```-
 ````

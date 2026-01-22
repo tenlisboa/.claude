@@ -20,7 +20,7 @@
 module.exports = function (context) {
   const prompt = context.prompt.toLowerCase();
 
-  // Keywords for qa-code-reviewer agent
+  // Keywords for reviewer agent
   const keywords = [
     'code review',
     'review',
@@ -39,6 +39,6 @@ module.exports = function (context) {
   return {
     version: '2.0', // Required: always "2.0"
     matchCount: matchCount, // Required: number of matches (0+)
-    type: 'agent', // qa-code-reviewer is an agent
+    type: 'agent', // reviewer is an agent
   };
 };
