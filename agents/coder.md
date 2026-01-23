@@ -1,7 +1,7 @@
 ---
 name: coder
 description: Expert implementation agent. Use for coding tasks after requirements are clear. ALWAYS delegates to reviewer after implementation. Proactively invoked for any code writing task.
-color: cyan
+color: green
 model: haiku
 skills: php-laravel, react, python-fastapi-ai
 permissionMode: acceptEdits
