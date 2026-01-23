@@ -1,7 +1,7 @@
 ---
 name: product-management
-description: MANDATORY for ANY code change. MUST invoke BEFORE writing/editing code. Triggers on implement, add, create, build, refactor, adjust, fix, update, change, "produto", "PM", "spec", "feature". Routes to correct workflow (trivial→coder, complex→feature-refiner→coder→qa). CRITICAL - When active, you are the PM, NEVER implement code yourself. ALWAYS delegate to coder agent. Your role is orchestration ONLY.
-allowed-tools: Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
+description: MANDATORY for ANY code change. MUST invoke BEFORE writing/editing code. Triggers on implement, add, create, build, refactor, adjust, fix, update, change, "produto", "PM", "spec", "feature", "PRD", "requirements". Routes to correct workflow (trivial→coder, complex→feature-refiner→coder→qa). For complex projects, uses RPG methodology for deep planning. CRITICAL - When active, you are the PM, NEVER implement code yourself. ALWAYS delegate to coder agent. Your role is orchestration ONLY.
+allowed-tools: Read, Write, Edit, Glob, Grep, Task, TaskCreate, TaskUpdate, TaskList, AskUserQuestion
 ---
 
 # Product Management & Workflow Orchestration
@@ -174,27 +174,62 @@ For Medium/Complex (score 9+), QA review is MANDATORY before considering work co
 
 ### Pattern 3: Complex (Score 13-18)
 
-Feature-Refiner → Update Spec → Coder → QA
+RPG Discovery → Feature-Refiner → Coder → QA → Task Tracking
 
 **Examples:**
 - New authentication system
 - Payment integration
 - Complex business workflow
 - Architecture changes
+- Multi-module features
+
+**When to use RPG Methodology:**
+- Multiple teams or domains involved
+- Requires explicit dependency ordering
+- Has 3+ distinct capability areas
+- Will generate 10+ tasks
+- Cross-cutting concerns (auth, logging, etc.)
 
 **Delegation sequence:**
 
-1. Create initial spec in specs/[feature].md
-2. Task: Analyze technical feasibility and refine spec at specs/[feature].md
+1. **Deep Discovery (RPG Methodology)**
+   - Load: @references/rpg-methodology.md
+   - Gather requirements (problem, users, success metrics)
+   - Build capability tree → @references/sections/functional.md
+   - Map to code structure → @references/sections/structural.md
+   - Define dependency graph → @references/sections/dependencies.md
+
+2. **Create comprehensive spec** in specs/[feature].md
+   - Use @references/specification-format.md as base
+   - Include dependency graph from RPG analysis
+   - Define implementation phases
+
+3. **Delegate to feature-refiner**
+   ```
+   Task: Analyze technical feasibility and refine spec at specs/[feature].md
    subagent_type: feature-refiner
-3. Update spec with refinements
-4. Task: Implement refined spec at specs/[feature].md
+   ```
+
+4. **Update spec** with refinements
+
+5. **Generate task list** using TaskCreate
+   - Create foundation tasks first (no dependencies)
+   - Create dependent tasks with descriptions including file locations
+   - Use TaskUpdate to set addBlockedBy relationships
+
+6. **Delegate to coder**
+   ```
+   Task: Implement refined spec at specs/[feature].md
    subagent_type: coder
-5. **WAIT for coder to complete** - Do NOT move on until you see completion message
-6. **VERIFY QA delegation**:
+   ```
+
+7. **WAIT for coder to complete** - Do NOT move on until you see completion message
+
+8. **VERIFY QA delegation**:
    - Check if coder output mentions "delegating to reviewer" or "qa review"
    - If NOT delegated, manually delegate to reviewer
-7. **Your job is done** - let QA complete
+
+9. **Update task status** - Mark completed tasks via TaskUpdate
 
 ### Pattern 4: Parallel Independent Tasks
 
@@ -235,8 +270,18 @@ subagent_type: coder
 Always create specs in `specs/[feature].md` before delegation for Score 9+.
 
 **References (load as needed):**
-- `references/specification-format.md` - Complete template and section guidelines
-- `references/examples.md` - 7 real-world examples by complexity + anti-patterns to avoid
+
+| Reference | When to Load |
+|-----------|--------------|
+| `references/specification-format.md` | Always for Score 9+ (complete template) |
+| `references/examples.md` | When you need real-world examples |
+| `references/rpg-methodology.md` | Score 13+ with complex dependencies |
+| `references/sections/functional.md` | Building capability trees |
+| `references/sections/structural.md` | Mapping capabilities to code |
+| `references/sections/dependencies.md` | Defining task dependencies (critical) |
+| `references/sections/roadmap.md` | Multi-phase implementation |
+| `references/sections/testing.md` | Test strategy definition |
+| `references/sections/architecture.md` | Technical architecture decisions |
 
 ## Decision Tree
 
@@ -252,7 +297,17 @@ ASSESS (use Score Thresholds table):
   │
   ├── Score 9-12 (Medium) ────→ Create spec → coder → verify QA
   │
-  └── Score 13-18 (Complex) ──→ Create spec → feature-refiner → coder → verify QA
+  └── Score 13-18 (Complex) ──→ RPG Discovery → spec → feature-refiner → coder → QA
+         │
+         ▼
+    Use RPG Methodology?
+    (Multiple domains, 10+ tasks, cross-cutting concerns)
+         │
+         ├──YES──→ Load @references/rpg-methodology.md
+         │         Build capability tree & dependency graph
+         │         Generate tasks with TaskCreate
+         │
+         NO
          │
          ▼
     Has independent parts? (see parallel criteria)
@@ -296,6 +351,42 @@ subagent_type: [agent-name]
 ```
 
 For resumable long tasks, save agentId for potential resume.
+
+## Task Tracking (Complex Projects)
+
+For Score 13+ projects, use built-in task tools to track progress:
+
+**Create tasks after spec is finalized:**
+```
+TaskCreate:
+  subject: "Setup authentication module"
+  description: "Create auth service in src/services/auth.ts. Implement JWT generation/validation."
+  activeForm: "Setting up authentication module"
+```
+
+**Set dependencies:**
+```
+TaskUpdate:
+  taskId: [task-id]
+  addBlockedBy: [foundation-task-id]
+```
+
+**Task creation order:**
+1. Foundation tasks (no dependencies) - create first
+2. Middle tasks - link with addBlockedBy
+3. Terminal tasks - final deliverables
+
+**Update status as work progresses:**
+```
+TaskUpdate:
+  taskId: [task-id]
+  status: "completed"
+```
+
+**Review all tasks:**
+```
+TaskList
+```
 
 ## Examples
 
