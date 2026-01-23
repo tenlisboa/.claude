@@ -13,5 +13,6 @@
 !commands/**
 !hooks/
 !hooks/**
+hooks/rio/logs/
 !utils/
 !utils/**
