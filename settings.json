@@ -1,4 +1,5 @@
 {
+  "model": "sonnet",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -12,7 +13,8 @@
     ]
   },
   "enabledPlugins": {
-    "atlassian@claude-plugins-official": true
+    "atlassian@claude-plugins-official": true,
+    "px-product@px-center": true
   },
   "alwaysThinkingEnabled": true
 }

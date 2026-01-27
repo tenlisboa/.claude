@@ -102,6 +102,27 @@
         "lastUpdated": "2026-01-10T21:36:18.725Z",
         "gitCommitSha": "b46a249074e00e6531a0222afbeb91c3e707cf54"
       }
+    ],
+    "px-coding@px-center": [
+      {
+        "scope": "project",
+        "projectPath": "/home/lisboa/Project/AI/px-coding-agents",
+        "installPath": "/home/lisboa/.claude/plugins/cache/px-center/px-coding/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-23T18:17:35.302Z",
+        "lastUpdated": "2026-01-23T18:17:35.302Z",
+        "gitCommitSha": "03a87a75cbbaa8a4153eb5c5f932ca6f92ab7d64"
+      }
+    ],
+    "px-product@px-center": [
+      {
+        "scope": "user",
+        "installPath": "/home/lisboa/.claude/plugins/cache/px-center/px-product/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-27T12:44:58.366Z",
+        "lastUpdated": "2026-01-27T12:44:58.366Z",
+        "gitCommitSha": "03a87a75cbbaa8a4153eb5c5f932ca6f92ab7d64"
+      }
     ]
   }
 }

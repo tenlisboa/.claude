@@ -3,8 +3,8 @@
 !CLAUDE.md
 !README.md
 
-!skills/
-!skills/**
+# !skills/
+# !skills/**
 !agents/
 !agents/**
 !commands/
