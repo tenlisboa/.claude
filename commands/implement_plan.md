@@ -1,5 +1,6 @@
 ---
 description: Implement technical plans from thoughts/plans with verification
+model: haiku
 ---
 
 # Implement Plan
