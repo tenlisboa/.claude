@@ -85,6 +85,7 @@ You are tasked with creating and opening a pull request using the GitHub CLI, fo
 - Handle authentication errors gracefully and guide user to authenticate with `gh auth login`
 - Preserve template format exactly if one exists - don't modify or simplify
 - Always work with the current branch - don't switch branches
+- Don't ever place "Generate With" or something similar anywhere, all should appear human made
 
 ## Error handling:
 
